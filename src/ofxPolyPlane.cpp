@@ -29,9 +29,9 @@ radius(15.0f) {
 
 void ofxPolyPlane::draw() {
 	if (this->source != 0) {
-		source->getTextureReference().bind();
+		source->getTexture().bind();
 		mesh.draw();
-		source->getTextureReference().unbind();
+		source->getTexture().unbind();
 	}
 	
 	if (this->calibrateMode) {
@@ -51,7 +51,7 @@ void ofxPolyPlane::draw() {
 			else
 				ofSetLineWidth(1.0f);
 			
-			ofCircle(point.getOutput()[0], point.getOutput()[1], radius);
+			ofDrawCircle(point.getOutput()[0], point.getOutput()[1], radius);
 		}
 		ofPopStyle();
 	}
@@ -59,8 +59,8 @@ void ofxPolyPlane::draw() {
 
 void ofxPolyPlane::setSource(ofBaseHasTexture &source) {
 	this->source = &source;
-	defaultBounds.width = source.getTextureReference().getWidth();
-	defaultBounds.height = source.getTextureReference().getHeight();
+	defaultBounds.width = source.getTexture().getWidth();
+	defaultBounds.height = source.getTexture().getHeight();
 	this->updateGrid();
 }
 
@@ -122,8 +122,8 @@ void ofxPolyPlane::updateGrid() {
 	
 	mesh.clear();
 	
-	float resByGridX = source->getTextureReference().getWidth() / (gridResolution - 1);
-	float resByGridY = source->getTextureReference().getHeight() / (gridResolution - 1);
+	float resByGridX = source->getTexture().getWidth() / (gridResolution - 1);
+	float resByGridY = source->getTexture().getHeight() / (gridResolution - 1);
 	
 	fit.correlate(calibration);
 	pfitDataPointf point(2, 2);
